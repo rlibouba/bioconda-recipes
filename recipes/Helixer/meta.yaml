@@ -1,13 +1,13 @@
 {% set name = "helixer" %}
 {% set version = "0.3.1" %}
-{% set sha256 = "8bde446938043861cae5051bf81e678c50f891144390a9bba0c308ed03b64326" %}
+{% set sha256 = "5cf983f320f5255656b9999895c84afdbfd3546ce299955cf3bf44c41f9cb0cd" %}
 
 package:
   name: {{ name|lower}}
   version: {{ version }}
 
 source:
-  url: https://github.com/weberlab-hhu/Helixer/archive/refs/tags/v0.3.1.tar.gz
+  url: https://github.com/weberlab-hhu/Helixer/archive/refs/tags/v{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
@@ -15,17 +15,16 @@ build:
   number: 0
 
 requirements:
-
-  - python 3.8
+  - python =3.8
   - seaborn
   - Keras
   - terminaltables
   - numpy
   - h5py
-  - sqlalchemy 1.3.22
-  - cudatoolkit=11.5
-  - tensorflow-gpu=2.7.0
-  - nni # missing on conda
+  - sqlalchemy =1.3.22
+  - cudatoolkit =11.5
+  - tensorflow-gpu =2.7.0
+  - nni # missing on conda : en attente packahe conda créer + PR
 
 test:
   imports:
@@ -33,13 +32,14 @@ test:
     - requests
 
   commands:
-    - 
+    - ./target/release/helixer_post_bin
 
 buil:
   skip: true
 
 about:
   home: https://github.com/weberlab-hhu/Helixer
-  licence: MIT
-  licence_file: LICENSE.txt
-  summary: "Helixer is a tool for configuring and training models for de novo gene structure prediction."
+  license: MIT
+  license_file: LICENSE
+  summary: "Helixer is a tool for configuring and training models for 
+  de novo gene structure prediction."
