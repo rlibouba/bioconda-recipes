@@ -1,6 +1,7 @@
 
-{% set version = "0.6.4" %}
-{% set sha256 = "c5c7ce4fe84af12cf0cc09b7a081501d8de4696fe57662272f36f7c31f53cfc1" %}
+{% set version = "0.10.1" %}
+{% set sha256 = "a864010d9ba329feb9211d554ea9c410f5bcc1e1462369bef56a8f5b8914f3d2" %}
+
 
 package:
   name: gw
@@ -10,10 +11,15 @@ package:
 source:
   url: https://github.com/kcleal/gw/archive/refs/tags/v{{ version }}.tar.gz
   sha256: {{ sha256 }}
+  patches:
+    - fix-linker-issues.patch  # [linux]
+    - fix-version.patch
 
 
 build:
   number: 0
+  run_exports:
+    - {{ pin_subpackage('gw', max_pin="x") }} 
 
 requirements:
   build:
@@ -27,23 +33,27 @@ requirements:
     - {{ cdt('libxxf86vm') }}        # [linux]
     - {{ cdt('libxfixes') }}         # [linux]
     - {{ cdt('libxext') }}           # [linux]
-    - wget
-    - unzip
   host:
     - fontconfig
+    - libuuid
     - libcurl
-    - libdeflate
-    - htslib
-    - glfw
+    - libdeflate >=1.0
+    - htslib >=1.12
+    - glfw >=3.3
+    - wget
+    - unzip
     - freetype
-    - xorg-libxfixes  # [linux]
+    - xorg-libxfixes         # [linux]
+    - xorg-libx11            # [linux]
+    - xorg-libxcb            # [linux]
+    - expat                  # [linux]
   run:
-    - glfw
-    - htslib
+    - glfw >=3.3
+    - htslib >=1.12 
 
 test:
   commands:
-    - 'LD_LIBRARY_PATH="${BUILD_PREFIX}/x86_64-conda-linux-gnu/sysroot/usr/lib64:${BUILD_PREFIX}/lib" gw --version'
+    - gw --version
 
 about:
   home: https://github.com/kcleal/gw

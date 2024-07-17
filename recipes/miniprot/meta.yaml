@@ -1,6 +1,6 @@
-{% set version = "0.8" %}
+{% set version = "0.13" %}
 {% set name = "miniprot" %}
-{% set sha256 = "a569abfab14f5472fc78478be7abd80a6335be80c70cba9177e3f393c61ae06a" %}
+{% set sha256 = "be12d98d998beb78e4e06350c03d2f188bcdf3245d6bcaf43e2cc80785a617a4" %}
 
 package:
   name: "{{ name }}"
@@ -8,6 +8,8 @@ package:
 
 build:
   number: 0
+  run_exports:
+    - {{ pin_subpackage(name, max_pin="x") }}
 
 source:
   url: "https://github.com/lh3/miniprot/archive/refs/tags/v{{ version }}.tar.gz"

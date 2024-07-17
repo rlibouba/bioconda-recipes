@@ -1,4 +1,4 @@
-{% set version = "0.2.18" %}
+{% set version = "1.0.11" %}
 
 package:
   name: bionumpy
@@ -6,13 +6,14 @@ package:
 
 source:
   url: https://github.com/bionumpy/bionumpy/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 82c29c5762ca568c2ea4891d36120c00d79a7b39695e9315e89a331ba0323ca7
+  sha256: 14883379dbae1a7cd80b1e19e7593db0f9966413c2a1ffb97f58690fec5dc929
   
 build:
   noarch: python
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps -vv
-
+  run_exports:
+    - {{ pin_subpackage("bionumpy", max_pin="x.x") }}
 
 requirements:
   host:
